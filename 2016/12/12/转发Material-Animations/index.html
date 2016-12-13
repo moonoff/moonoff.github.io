@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Material-Animations-Stu | Hexo</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Hexo">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Hexo</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2016-12-12T14:29:34.689Z" itemprop="datePublished">
+          2016-12-12
+      </time>
+    
+    
+    | 
+    <a href='/tags/Material/'>Material</a>
+    
+    
+</span>
+    <h1 class="post-title">Material-Animations-Stu</h1>
+    <section class="post-content">
+      <p><a href="https://developer.android.com/training/transitions/overview.html" target="_blank" rel="external">Android Transition Framework</a> can be used for <strong>three</strong> main things:</p>
+<ol>
+<li>Animate activity layout content when transitioning from one activity to another.</li>
+<li>Animate shared elements (Hero views) in transitions between activities.</li>
+<li>Animate view changes within same activity.</li>
+</ol>
+<h2 id="1-Transitions-between-Activities"><a href="#1-Transitions-between-Activities" class="headerlink" title="1. Transitions between Activities"></a>1. Transitions between Activities</h2><p>Animate existing activity layout <strong>content</strong></p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_A_to_B.png" alt="A Start B"></p>
+<p>When transitioning from <code>Activity A</code> to <code>Activity B</code> content layout is animated according to defined transition. There are three predefined transitions available on <code>android.transition.Transition</code> you can use: <strong>Explode</strong>, <strong>Slide</strong> and <strong>Fade</strong>.<br>All these transitions track changes to the visibility of target views in activity layout and animate those views to follow transition rules.</p>
+<table>
+<thead>
+<tr>
+<th><a href="https://developer.android.com/reference/android/transition/Explode.html" target="_blank" rel="external">Explode</a></th>
+<th><a href="https://developer.android.com/reference/android/transition/Slide.html" target="_blank" rel="external">Slide</a></th>
+<th><a href="https://developer.android.com/reference/android/transition/Fade.html" target="_blank" rel="external">Fade</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_explode.gif" alt="transition_explode"></td>
+<td><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_slide.gif" alt="transition_slide"></td>
+<td><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_fade.gif" alt="transition_fade"></td>
+</tr>
+</tbody>
+</table>
+<p>You can define these transitions <strong>declarative</strong> using XML or <strong>programmatically</strong>. For the Fade Transition sample, it would look like this:</p>
+<h3 id="Declarative"><a href="#Declarative" class="headerlink" title="Declarative"></a>Declarative</h3><p>Transitions are defined on XML files in <code>res/transition</code></p>
+<blockquote>
+<p>res/transition/activity_fade.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">fade</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/"</span></span></div><div class="line">    <span class="attr">android:duration</span>=<span class="string">"1000"</span>/&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>res/transition/activity_slide.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">slide</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/"</span></span></div><div class="line">    <span class="attr">android:duration</span>=<span class="string">"1000"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>To use these transitions you need to inflate them using <code>TransitionInflater</code></p>
+<blockquote>
+<p>MainActivity.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">       setContentView(R.layout.activity_transition);</div><div class="line">       setupWindowAnimations();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupWindowAnimations</span><span class="params">()</span> </span>&#123;</div><div class="line">       Slide slide = TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.activity_slide);</div><div class="line">       getWindow().setExitTransition(slide);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>TransitionActivity.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">       setContentView(R.layout.activity_transition);</div><div class="line">       setupWindowAnimations();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupWindowAnimations</span><span class="params">()</span> </span>&#123;</div><div class="line">       Fade fade = TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.activity_fade);</div><div class="line">       getWindow().setEnterTransition(fade);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h3 id="Programmatically"><a href="#Programmatically" class="headerlink" title="Programmatically"></a>Programmatically</h3><blockquote>
+<p>MainActivity.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">       setContentView(R.layout.activity_transition);</div><div class="line">       setupWindowAnimations();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupWindowAnimations</span><span class="params">()</span> </span>&#123;</div><div class="line">       Slide slide = <span class="keyword">new</span> Slide();</div><div class="line">       slide.setDuration(<span class="number">1000</span>);</div><div class="line">       getWindow().setExitTransition(slide);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>TransitionActivity.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">       setContentView(R.layout.activity_transition);</div><div class="line">       setupWindowAnimations();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupWindowAnimations</span><span class="params">()</span> </span>&#123;</div><div class="line">       Fade fade = <span class="keyword">new</span> Fade();</div><div class="line">       fade.setDuration(<span class="number">1000</span>);</div><div class="line">       getWindow().setEnterTransition(fade);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h4 id="Any-of-those-produce-this-result"><a href="#Any-of-those-produce-this-result" class="headerlink" title="Any of those produce this result:"></a>Any of those produce this result:</h4><p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_fade.gif" alt="transition_fade"></p>
+<h3 id="What-is-happening-step-by-step"><a href="#What-is-happening-step-by-step" class="headerlink" title="What is happening step by step:"></a>What is happening step by step:</h3><ol>
+<li><p>Activity A starts Activity B</p>
+</li>
+<li><p>Transition Framework finds A Exit Transition (slide) and apply it to all visible views.</p>
+</li>
+<li>Transition Framework finds B Enter Transition (fade) and apply it to all visible views.</li>
+<li><strong>On Back Pressed</strong> Transition Framework executes Enter and Exit reverse animations respectively (If we had defined output <code>returnTransition</code> and <code>reenterTransition</code>, these have been executed instead) </li>
+</ol>
+<h3 id="ReturnTransition-amp-ReenterTransition"><a href="#ReturnTransition-amp-ReenterTransition" class="headerlink" title="ReturnTransition &amp; ReenterTransition"></a>ReturnTransition &amp; ReenterTransition</h3><p>Return and Reenter Transitions are the reverse animations for Enter and Exit respectively.</p>
+<ul>
+<li>EnterTransition &lt;–&gt; ReturnTransition</li>
+<li>ExitTransition &lt;–&gt; ReenterTransition</li>
+</ul>
+<p>If Return or Reenter are not defined, Android will execute a reversed version of Enter and Exit Transitions. But if you do define them, you can have different transitions for entering and exiting an activity.</p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_B_to_A.png" alt="b back a"></p>
+<p>We can modify previous Fade sample and define a <code>ReturnTransition</code> for <code>TransitionActivity</code>, in this case, a <strong>Slide</strong> transition. This way, when returning from B to A, instead of seeing a Fade out (reversed Enter Transition) we will see a <strong>Slide out</strong> transition</p>
+<blockquote>
+<p>TransitionActivity.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">       setContentView(R.layout.activity_transition);</div><div class="line">       setupWindowAnimations();</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setupWindowAnimations</span><span class="params">()</span> </span>&#123;</div><div class="line">       Fade fade = <span class="keyword">new</span> Fade();</div><div class="line">       fade.setDuration(<span class="number">1000</span>);</div><div class="line">       getWindow().setEnterTransition(fade);</div><div class="line">       </div><div class="line">       Slide slide = <span class="keyword">new</span> Slide();</div><div class="line">       slide.setDuration(<span class="number">1000</span>);</div><div class="line">       getWindow().setReturnTransition(slide);        </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>Observe that if no Return Transition is defined then a reversed Enter Transition is executed.<br>If a Return Transition is defined that one is executed instead. </p>
+<table>
+<thead>
+<tr>
+<th>Without Return Transition</th>
+<th>With Return Transition </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enter: <code>Fade In</code></td>
+<td>Enter: <code>Fade In</code></td>
+</tr>
+<tr>
+<td>Exit: <code>Fade Out</code></td>
+<td>Exit: <code>Slide out</code></td>
+</tr>
+<tr>
+<td><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_fade.gif" alt="transition_fade"></td>
+<td><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/transition_fade2.gif" alt="transition_fade2"> </td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-Shared-elements-between-Activities"><a href="#2-Shared-elements-between-Activities" class="headerlink" title="2. Shared elements between Activities"></a>2. Shared elements between Activities</h2><p>The idea behind this is having two different views in two different layouts and link them somehow with an animation.</p>
+<p>Transition framework will then do <em>whatever animations it consider necessary</em> to show the user a transition from one view to another.</p>
+<p>Keep this always in mind: the view <strong>is not really moving</strong> from one layout to another. They are two independent views.</p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/shared_element.png" alt="A Start B with shared"></p>
+<h3 id="a-Enable-Window-Content-Transition"><a href="#a-Enable-Window-Content-Transition" class="headerlink" title="a) Enable Window Content Transition"></a>a) Enable Window Content Transition</h3><p>This is something you need to set up once on your app <code>styles.xml</code>.</p>
+<blockquote>
+<p>values/styles.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"MaterialAnimations"</span> <span class="attr">parent</span>=<span class="string">"@style/Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="xml"></span></div><div class="line">    ...</div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowContentTransitions"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span></span></div><div class="line">    <span class="attr">...</span></div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Here you can also specify default enter, exit and shared element transitions for the whole app if you want</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"MaterialAnimations"</span> <span class="attr">parent</span>=<span class="string">"@style/Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="xml"></span></div><div class="line">    ...</div><div class="line">    <span class="comment">&lt;!-- specify enter and exit transitions --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowEnterTransition"</span>&gt;</span>@transition/explode<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowExitTransition"</span>&gt;</span>@transition/explode<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- specify shared element transitions --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowSharedElementEnterTransition"</span>&gt;</span>@transition/changebounds<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowSharedElementExitTransition"</span>&gt;</span>@transition/changebounds<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="b-Define-a-common-transition-name"><a href="#b-Define-a-common-transition-name" class="headerlink" title="b) Define a common transition name"></a>b) Define a common transition name</h3><p>To make the trick you need to give both, origin and target views, the same <strong><code>android:transitionName</code></strong>. They may have different ids or properties, but <code>android:transitionName</code> must be the same.</p>
+<blockquote>
+<p>layout/activity_a.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/small_blue_icon"</span></div><div class="line">        <span class="attr">style</span>=<span class="string">"@style/MaterialAnimations.Icon.Small"</span></div><div class="line">        <span class="attr">android:src</span>=<span class="string">"@drawable/circle"</span></div><div class="line">        <span class="attr">android:transitionName</span>=<span class="string">"@string/blue_name"</span> /&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>layout/activity_b.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/big_blue_icon"</span></div><div class="line">        <span class="attr">style</span>=<span class="string">"@style/MaterialAnimations.Icon.Big"</span></div><div class="line">        <span class="attr">android:src</span>=<span class="string">"@drawable/circle"</span></div><div class="line">        <span class="attr">android:transitionName</span>=<span class="string">"@string/blue_name"</span> /&gt;</div></pre></td></tr></table></figure>
+<h3 id="c-Start-an-activity-with-a-shared-element"><a href="#c-Start-an-activity-with-a-shared-element" class="headerlink" title="c) Start an activity with a shared element"></a>c) Start an activity with a shared element</h3><p>Use the <code>ActivityOptions.makeSceneTransitionAnimation()</code> method to define shared element origin view and transition name.</p>
+<blockquote>
+<p>MainActivity.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">blueIconImageView.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        Intent i = <span class="keyword">new</span> Intent(MainActivity.<span class="keyword">this</span>, SharedElementActivity.class);</div><div class="line"></div><div class="line">        View sharedView = blueIconImageView;</div><div class="line">        String transitionName = getString(R.string.blue_name);</div><div class="line"></div><div class="line">        ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.<span class="keyword">this</span>, sharedView, transitionName);</div><div class="line">        startActivity(i, transitionActivityOptions.toBundle());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>Just that code will produce this beautiful transition animation:</p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/shared_element_anim.gif" alt="a to b with shared element"></p>
+<p>As you can see, Transition framework is creating and executing an animation to create the illusion that views are moving and changing shape from one activity to the other</p>
+<h2 id="Shared-elements-between-fragments"><a href="#Shared-elements-between-fragments" class="headerlink" title="Shared elements between fragments"></a>Shared elements between fragments</h2><p>Shared element transition works with Fragments in a very similar way as it does with activities. </p>
+<p>Steps <strong>a)</strong> and <strong>b)</strong> are exactly the <strong>same</strong>. Only <strong>c)</strong> changes            </p>
+<h3 id="a-Enable-Window-Content-Transition-1"><a href="#a-Enable-Window-Content-Transition-1" class="headerlink" title="a) Enable Window Content Transition"></a>a) Enable Window Content Transition</h3><blockquote>
+<p>values/styles.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"MaterialAnimations"</span> <span class="attr">parent</span>=<span class="string">"@style/Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="xml"></span></div><div class="line">    ...</div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowContentTransitions"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="b-Define-a-common-transition-name-1"><a href="#b-Define-a-common-transition-name-1" class="headerlink" title="b) Define a common transition name"></a>b) Define a common transition name</h3><blockquote>
+<p>layout/fragment_a.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/small_blue_icon"</span></div><div class="line">        <span class="attr">style</span>=<span class="string">"@style/MaterialAnimations.Icon.Small"</span></div><div class="line">        <span class="attr">android:src</span>=<span class="string">"@drawable/circle"</span></div><div class="line">        <span class="attr">android:transitionName</span>=<span class="string">"@string/blue_name"</span> /&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>layout/fragment_b.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/big_blue_icon"</span></div><div class="line">        <span class="attr">style</span>=<span class="string">"@style/MaterialAnimations.Icon.Big"</span></div><div class="line">        <span class="attr">android:src</span>=<span class="string">"@drawable/circle"</span></div><div class="line">        <span class="attr">android:transitionName</span>=<span class="string">"@string/blue_name"</span> /&gt;</div></pre></td></tr></table></figure>
+<h3 id="c-Start-a-fragment-with-a-shared-element"><a href="#c-Start-a-fragment-with-a-shared-element" class="headerlink" title="c) Start a fragment with a shared element"></a>c) Start a fragment with a shared element</h3><p>To do this you need to include shared element transition information as part of the <strong><code>FragmentTransaction</code></strong> process.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">FragmentB fragmentB = FragmentB.newInstance(sample);</div><div class="line"></div><div class="line"><span class="comment">// Defines enter transition for all fragment views</span></div><div class="line">Slide slideTransition = <span class="keyword">new</span> Slide(Gravity.RIGHT);</div><div class="line">slideTransition.setDuration(<span class="number">1000</span>);</div><div class="line">sharedElementFragment2.setEnterTransition(slideTransition);</div><div class="line"></div><div class="line"><span class="comment">// Defines enter transition only for shared element</span></div><div class="line">ChangeBounds changeBoundsTransition = TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.change_bounds);</div><div class="line">fragmentB.setSharedElementEnterTransition(changeBoundsTransition);</div><div class="line"></div><div class="line">getFragmentManager().beginTransaction()</div><div class="line">        .replace(R.id.content, fragmentB)</div><div class="line">        .addSharedElement(blueView, getString(R.string.blue_name))</div><div class="line">        .commit();</div></pre></td></tr></table></figure>
+<p>And this is the final result:</p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/shared_element_no_overlap.gif" alt="shared_element_no_overlap"></p>
+<h2 id="Allow-Transition-Overlap"><a href="#Allow-Transition-Overlap" class="headerlink" title="Allow Transition Overlap"></a>Allow Transition Overlap</h2><p>You can define if enter and exit transitions can overlap each other. </p>
+<p>From <a href="http://developer.android.com/intl/ko/reference/android/app/Fragment.html#getAllowEnterTransitionOverlap(" target="_blank" rel="external">Android documentation</a>):</p>
+<blockquote>
+<p>When <strong>true</strong>, the enter transition will start as soon as possible. </p>
+<p>When <strong>false</strong>, the enter transition will wait until the exit transition completes before starting.</p>
+</blockquote>
+<p>This works for both Fragments and Activities shared element transitions.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">FragmentB fragmentB = FragmentB.newInstance(sample);</div><div class="line"></div><div class="line"><span class="comment">// Defines enter transition for all fragment views</span></div><div class="line">Slide slideTransition = <span class="keyword">new</span> Slide(Gravity.RIGHT);</div><div class="line">slideTransition.setDuration(<span class="number">1000</span>);</div><div class="line">sharedElementFragment2.setEnterTransition(slideTransition);</div><div class="line"></div><div class="line"><span class="comment">// Defines enter transition only for shared element</span></div><div class="line">ChangeBounds changeBoundsTransition = TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.change_bounds);</div><div class="line">fragmentB.setSharedElementEnterTransition(changeBoundsTransition);</div><div class="line"></div><div class="line"><span class="comment">// Prevent transitions for overlapping</span></div><div class="line">fragmentB.setAllowEnterTransitionOverlap(overlap);</div><div class="line">fragmentB.setAllowReturnTransitionOverlap(overlap);</div><div class="line"></div><div class="line">getFragmentManager().beginTransaction()</div><div class="line">        .replace(R.id.content, fragmentB)</div><div class="line">        .addSharedElement(blueView, getString(R.string.blue_name))</div><div class="line">        .commit();</div></pre></td></tr></table></figure>
+<p>It is very easy to spot the difference in this example:</p>
+<table>
+<thead>
+<tr>
+<th>Overlap True</th>
+<th>Overlap False</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fragment_2 appears on top of Fragment_1</td>
+<td>Fragment_2 waits until Fragment_1 is gone</td>
+</tr>
+<tr>
+<td><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/shared_element_overlap.gif" alt="shared_element_overlap"></td>
+<td><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/shared_element_no_overlap.gif" alt="shared_element_no_overlap"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-Animate-view-layout-elements"><a href="#3-Animate-view-layout-elements" class="headerlink" title="3. Animate view layout elements"></a>3. Animate view layout elements</h2><h3 id="Scenes"><a href="#Scenes" class="headerlink" title="Scenes"></a>Scenes</h3><p>Transition Framework can also be used to animate element changes within current activity layout. </p>
+<p>Transitions happen between scenes. A scene is just a regular layout which <strong>defines a static state of our UI</strong>. You can transition from one scene to another and Transition Framework will animate views in between.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">scene1 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene1, <span class="keyword">this</span>);</div><div class="line">scene2 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene2, <span class="keyword">this</span>);</div><div class="line">scene3 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene3, <span class="keyword">this</span>);</div><div class="line">scene4 = Scene.getSceneForLayout(sceneRoot, R.layout.activity_animations_scene4, <span class="keyword">this</span>);</div><div class="line"></div><div class="line">(...)</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (v.getId()) &#123;</div><div class="line">        <span class="keyword">case</span> R.id.button1:</div><div class="line">            TransitionManager.go(scene1, <span class="keyword">new</span> ChangeBounds());</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> R.id.button2:</div><div class="line">            TransitionManager.go(scene2, TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.slide_and_changebounds));</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> R.id.button3:</div><div class="line">            TransitionManager.go(scene3, TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.slide_and_changebounds_sequential));</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> R.id.button4:</div><div class="line">            TransitionManager.go(scene4, TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.slide_and_changebounds_sequential_with_interpolators));</div><div class="line">            <span class="keyword">break</span>;  </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>That code would produce transition between four scenes in the same activity. Each transition has a different animation defined. </p>
+<p>Transition Framework will take all visible views in current scene and calculate whatever necessary animations are needed to arrange those views according to next scene.</p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/scenes_anim.gif" alt="scenes_anim"></p>
+<h3 id="Layout-changes"><a href="#Layout-changes" class="headerlink" title="Layout changes"></a>Layout changes</h3><p>Transition Framework can also be used to animate layout property changes in a view. You just need to make whatever changes you want and it will perform necessary animations for you</p>
+<h4 id="a-Begin-Delayed-Transition"><a href="#a-Begin-Delayed-Transition" class="headerlink" title="a) Begin Delayed Transition"></a>a) Begin Delayed Transition</h4><p>With just this line of code we are telling the framework we are going to perform some UI changes that it will need to animate.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TransitionManager.beginDelayedTransition(sceneRoot);</div></pre></td></tr></table></figure>
+<h4 id="b-Change-view-layout-properties"><a href="#b-Change-view-layout-properties" class="headerlink" title="b) Change view layout properties"></a>b) Change view layout properties</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ViewGroup.LayoutParams params = greenIconView.getLayoutParams();</div><div class="line">params.width = <span class="number">200</span>;</div><div class="line">greenIconView.setLayoutParams(params);</div></pre></td></tr></table></figure>
+<p>Changing view width attribute to make it smaller will trigger a <code>layoutMeasure</code>. At that point the Transition framework will record start and ending values and will create an animation to transition from one to another.</p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/view_layout_anim.gif" alt="view layout animation"></p>
+<h2 id="4-Bonus-Shared-elements-Circular-Reveal"><a href="#4-Bonus-Shared-elements-Circular-Reveal" class="headerlink" title="4. (Bonus) Shared elements + Circular Reveal"></a>4. (Bonus) Shared elements + Circular Reveal</h2><p>Circular Reveal is just an animation to show or hide a group of UI elements. It is available since API 21 in <code>ViewAnimationUtils</code> class. </p>
+<p>Circular Reveal animation can be used in combination of Shared Element Transition to create meaningful animations that smoothly teach the user what is happening in the app.</p>
+<p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/shared_reveal_anim.gif" alt="reveal_shared_anim"></p>
+<p>What is happening in this example step by step is:</p>
+<ul>
+<li>Orange circle is a shared element transitioning from <code>MainActivity</code> to <code>RevealActivity</code>.</li>
+<li>On <code>RevealActivity</code> there is a listener to listen for shared element transition end. When that happens it does two things:<ul>
+<li>Execute a Circular Reveal animation for the Toolbar</li>
+<li>Execute a scale up animation on <code>RevealActivity</code> views using plain old <code>ViewPropertyAnimator</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Listen to shared element enter transition end</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Transition transition = TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.changebounds_with_arcmotion);</div><div class="line">getWindow().setSharedElementEnterTransition(transition);</div><div class="line">transition.addListener(<span class="keyword">new</span> Transition.TransitionListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTransitionEnd</span><span class="params">(Transition transition)</span> </span>&#123;</div><div class="line">        animateRevealShow(toolbar);</div><div class="line">        animateButtonsIn();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    (...)</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Reveal Toolbar</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">animateRevealShow</span><span class="params">(View viewRoot)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> cx = (viewRoot.getLeft() + viewRoot.getRight()) / <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span> cy = (viewRoot.getTop() + viewRoot.getBottom()) / <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span> finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());</div><div class="line"></div><div class="line">    Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, <span class="number">0</span>, finalRadius);</div><div class="line">    viewRoot.setVisibility(View.VISIBLE);</div><div class="line">    anim.setDuration(<span class="number">1000</span>);</div><div class="line">    anim.setInterpolator(<span class="keyword">new</span> AccelerateInterpolator());</div><div class="line">    anim.start();</div><div class="line">&#125;</div><div class="line">```  </div><div class="line"></div><div class="line">&gt; Scale up activity layout views</div><div class="line"></div><div class="line">```<span class="function">java</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">animateButtonsIn</span><span class="params">()</span> &#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bgViewGroup.getChildCount(); i++) &#123;</div><div class="line">        View child = bgViewGroup.getChildAt(i);</div><div class="line">        child.animate()</div><div class="line">                .setStartDelay(<span class="number">100</span> + i * DELAY)</div><div class="line">                .setInterpolator(interpolator)</div><div class="line">                .alpha(<span class="number">1</span>)</div><div class="line">                .scaleX(<span class="number">1</span>)</div><div class="line">                .scaleY(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="More-circular-reveal-animations"><a href="#More-circular-reveal-animations" class="headerlink" title="More circular reveal animations"></a>More circular reveal animations</h3><p>There are many different ways you can create a reveal animation. The important thing is to use the animation to help the user understand what is happening in the app.</p>
+<h4 id="Circular-Reveal-from-the-middle-of-target-view"><a href="#Circular-Reveal-from-the-middle-of-target-view" class="headerlink" title="Circular Reveal from the middle of target view"></a>Circular Reveal from the middle of target view</h4><p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/reveal_green.gif" alt="reveal_green"></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;</div><div class="line">int cy = viewRoot.getTop();</div><div class="line">int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());</div><div class="line"></div><div class="line">Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius);</div><div class="line">viewRoot.setBackgroundColor(color);</div><div class="line">anim.start();</div><div class="line">```        </div><div class="line"></div><div class="line">#### Circular Reveal from top of target view + animations</div><div class="line"></div><div class="line">![reveal_blue]</div><div class="line"></div><div class="line">```java</div><div class="line">int cx = (viewRoot.getLeft() + viewRoot.getRight()) / 2;</div><div class="line">int cy = (viewRoot.getTop() + viewRoot.getBottom()) / 2;</div><div class="line">int finalRadius = Math.max(viewRoot.getWidth(), viewRoot.getHeight());</div><div class="line"></div><div class="line">Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, cx, cy, 0, finalRadius);</div><div class="line">viewRoot.setBackgroundColor(color);</div><div class="line">anim.addListener(new AnimatorListenerAdapter() &#123;</div><div class="line">    @Override</div><div class="line">    public void onAnimationEnd(Animator animation) &#123;</div><div class="line">        animateButtonsIn();</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">anim.start();</div><div class="line">``` </div><div class="line"></div><div class="line"></div><div class="line">#### Circular Reveal from touch point</div><div class="line"></div><div class="line">![reveal_yellow]</div><div class="line"></div><div class="line">```java</div><div class="line">@Override</div><div class="line">public boolean onTouch(View view, MotionEvent motionEvent) &#123;</div><div class="line">    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) &#123;</div><div class="line">        if (view.getId() == R.id.square_yellow) &#123;</div><div class="line">            revealFromCoordinates(motionEvent.getRawX(), motionEvent.getRawY());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code class="java"><span class="function"><span class="keyword">private</span> Animator <span class="title">animateRevealColorFromCoordinates</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>{
+    <span class="keyword">float</span> finalRadius = (<span class="keyword">float</span>) Math.hypot(viewRoot.getWidth(), viewRoot.getHeight());
+
+    Animator anim = ViewAnimationUtils.createCircularReveal(viewRoot, x, y, <span class="number">0</span>, finalRadius);
+    viewRoot.setBackgroundColor(color);
+    anim.start();
+}
+</code></pre>
+<h4 id="Animate-and-Reveal"><a href="#Animate-and-Reveal" class="headerlink" title="Animate and Reveal"></a>Animate and Reveal</h4><p><img src="https://raw.githubusercontent.com/lgvalle/Material-Animations/master/screenshots/reveal_red.gif" alt="reveal_red"></p>
+<pre><code class="java">Transition transition = TransitionInflater.from(<span class="keyword">this</span>).inflateTransition(R.transition.changebounds_with_arcmotion);
+transition.addListener(<span class="keyword">new</span> Transition.TransitionListener() {
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTransitionEnd</span><span class="params">(Transition transition)</span> </span>{
+        animateRevealColor(bgViewGroup, R.color.red);
+    }
+    (...)
+
+});
+TransitionManager.beginDelayedTransition(bgViewGroup, transition);
+RelativeLayout.LayoutParams layoutParams = <span class="keyword">new</span> RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+btnRed.setLayoutParams(layoutParams);
+</code></pre>
+<h1 id="Sample-source-code"><a href="#Sample-source-code" class="headerlink" title="Sample source code"></a>Sample source code</h1><p><strong><a href="https://github.com/lgvalle/Material-Animations/" target="_blank" rel="external">https://github.com/lgvalle/Material-Animations</a></strong></p>
+<h1 id="More-information"><a href="#More-information" class="headerlink" title="More information"></a>More information</h1><ul>
+<li>Alex Lockwood posts about Transition Framework. A great in deep into this topic: <a href="http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html" target="_blank" rel="external">http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html</a></li>
+<li>Amazing repository with lot of Material Design samples by Saul Molinero: <a href="https://github.com/saulmm/Android-Material-Examples" target="_blank" rel="external">https://github.com/saulmm/Android-Material-Examples</a></li>
+<li>Chet Hasse video explaining Transition framework: <a href="https://www.youtube.com/watch?v=S3H7nJ4QaD8" target="_blank" rel="external">https://www.youtube.com/watch?v=S3H7nJ4QaD8</a></li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>John Doe</h4>
+    <p>作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来 ?url=http://yoursite.com/2016/12/12/转发Material-Animations/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2016/12/12/转发Material-Animations/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/12/12/转发Material-Animations/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2016/12/12/转发Material-Animations/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/12/12/Material-Animations-Stu/">
+        Material-Animations-Stu →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Hexo</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

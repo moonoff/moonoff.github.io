@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Material-Animations-Stu | Hexo</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Hexo">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Hexo</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2016-12-12T13:04:00.000Z" itemprop="datePublished">
+          2016-12-12
+      </time>
+    
+    
+    | 
+    <a href='/tags/Material/'>Material</a>
+    
+    
+</span>
+    <h1 class="post-title">Material-Animations-Stu</h1>
+    <section class="post-content">
+      <h2 id="在Activity之间的切换"><a href="#在Activity之间的切换" class="headerlink" title="在Activity之间的切换"></a>在Activity之间的切换</h2><h3 id="Explode"><a href="#Explode" class="headerlink" title="Explode"></a>Explode</h3><blockquote>
+<p>This transition tracks changes to the visibility of target views in the start and end scenes and moves views in or out from the edges of the scene. Visibility is determined by both the setVisibility(int) state of the view as well as whether it is parented in the current view hierarchy. Disappearing Views are limited as described in onDisappear(android.view.ViewGroup, TransitionValues, int, TransitionValues, int).</p>
+</blockquote>
+<h3 id="Slide"><a href="#Slide" class="headerlink" title="Slide"></a>Slide</h3><blockquote>
+<p>This transition tracks changes to the visibility of target views in the start and end scenes and moves views in or out from one of the edges of the scene. Visibility is determined by both the setVisibility(int) state of the view as well as whether it is parented in the current view hierarchy. Disappearing Views are limited as described in onDisappear(android.view.ViewGroup, TransitionValues, int, TransitionValues, int).</p>
+</blockquote>
+<h3 id="Fade"><a href="#Fade" class="headerlink" title="Fade"></a>Fade</h3><blockquote>
+<p>This transition tracks changes to the visibility of target views in the start and end scenes and fades views in or out when they become visible or non-visible. Visibility is determined by both the setVisibility(int) state of the view as well as whether it is parented in the current view hierarchy.</p>
+<p>The ability of this transition to fade out a particular view, and the way that that fading operation takes place, is based on the situation of the view in the view hierarchy. For example, if a view was simply removed from its parent, then the view will be added into a ViewGroupOverlay while fading. If a visible view is changed to be GONE or INVISIBLE, then the visibility will be changed to VISIBLE for the duration of the animation. However, if a view is in a hierarchy which is also altering its visibility, the situation can be more complicated. In general, if a view that is no longer in the hierarchy in the end scene still has a parent (so its parent hierarchy was removed, but it was not removed from its parent), then it will be left alone to avoid side-effects from improperly removing it from its parent. The only exception to this is if the previous Scene was created from a layout resource file, then it is considered safe to un-parent the starting scene view in order to fade it out.</p>
+<p>A Fade transition can be described in a resource file by using the tag fade, along with the standard attributes of Fade and Transition.</p>
+</blockquote>
+<h4 id="一、声明方式"><a href="#一、声明方式" class="headerlink" title="一、声明方式"></a>一、声明方式</h4><p>转换定义在XML文件中</p>
+<blockquote>
+<p>res/transition/activity_fade.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">fade</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/"</span></span></div><div class="line">    <span class="attr">android:duration</span>=<span class="string">"1000"</span>/&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>res/transition/activity_slide.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">slide</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/"</span></span></div><div class="line">    <span class="attr">android:duration</span>=<span class="string">"1000"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>使用这些xml需要通过TransitionInflater</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Slide slide = TransitionInflater</div><div class="line">	.from(<span class="keyword">this</span>)</div><div class="line">	.inflateTransition(R.transition.activity_slide);</div><div class="line">getWindow().setExitTransition(slide);</div><div class="line"></div><div class="line">Fade fade = TransitionInflater</div><div class="line">	.from(<span class="keyword">this</span>)</div><div class="line">	.inflateTransition(R.transition.activity_fade);</div><div class="line">getWindow().setEnterTransition(fade);</div></pre></td></tr></table></figure>
+<h4 id="二、程序方式"><a href="#二、程序方式" class="headerlink" title="二、程序方式"></a>二、程序方式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Slide slide = <span class="keyword">new</span> Slide();</div><div class="line">slide.setSlideEdge(Gravity.RIGHT);</div><div class="line">slide.setDuration(<span class="number">1000</span>);</div><div class="line">getWindow().setExitTransition(slide);</div><div class="line"></div><div class="line">Fade fade = <span class="keyword">new</span> Fade();</div><div class="line">fade.setDuration(<span class="number">1000</span>);</div><div class="line">getWindow().setEnterTransition(fade);</div></pre></td></tr></table></figure>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>John Doe</h4>
+    <p>作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来 ?url=http://yoursite.com/2016/12/12/Material-Animations-Stu/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2016/12/12/Material-Animations-Stu/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/12/12/Material-Animations-Stu/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2016/12/12/Material-Animations-Stu/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2016/12/12/转发Material-Animations/">
+        ← Material-Animations-Stu
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/12/10/hello-world/">
+        Hello World →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Hexo</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>
