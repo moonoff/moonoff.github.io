@@ -1,155 +1,44 @@
-<!DOCTYPE html>
-<html>
+extends base
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>公正 | Hexo</title>
-  <meta name="description" content="" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="MobileOptimized" content="320" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  <meta name="generator" content="Hexo">
+block title
+  title= page.title + ' | ' + config.title
 
-  
-  
-  
+block content
+  .post
+    h1.post-title= page.title
+    .post-meta= page.date.format('ll')
+      if page.categories.length > 0
+        span= ' | '
+        span.category
+          for category in page.categories.toArray()
+            a(href=url_for(category.path))= category.name
+      if theme.busuanzi == true
+        script(src='https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js', async)
+        span#busuanzi_container_page_pv= ' | '
+          span#busuanzi_value_page_pv
+          span= ' ' + __('Hits')
+    if theme.disqus
+      a.disqus-comment-count(data-disqus-identifier=page.path, href=url_for(page.path) + '#disqus_thread')
+    if theme.changyan
+      a.ds-thread-count(href=url_for(page.path) + '#SOHUCS')
+        span#changyan_count_unit(style='font-size: 15px; color: #6E7173;') 0
+        span= ' ' + __('Comment')
+      script(src='https://assets.changyan.sohu.com/upload/plugins/plugins.count.js', async)
+    if page.toc
+      div(class='clear')
+        div(id='toc' class='toc-article')
+          div(class='toc-title')= __('contents')
+          != toc(page.content, {list_number: theme.toc_number})
+    .post-content
+      != page.content
+    if theme.donate.enable == true
+      iframe(src='/donate/?AliPayQR=#{theme.donate.alipay_qr}&WeChatQR=#{theme.donate.wechat_qr}&GitHub=#{theme.donate.github}&BTCQR=#{theme.donate.btc_qr}&BTCKEY=#{theme.donate.btc_key}&PayPal=#{theme.donate.paypal_url}',style='overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;',frameborder='0',scrolling='no')
+    if theme.shareto == true
+      script(type='text/javascript', src=url_for(theme.js) + '/share.js' + '?v=' + theme.version, async)
+      a.article-share-link(data-url='#{page.permalink}', data-id='#{page._id}', data-qrcode=qrcode(page.permalink))= __('shareto')
 
-  
-</head>
+    include _partial/tag
+    include _partial/post_nav
 
-<!--
-<body class="post-template">
--->
-<body class="home-template">
-<div id="perspective" class="perspective effect-movedown">
-  <div class="container">
-    <!-- wrapper -->
-    <div class="wrapper">
-
-      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
-    <div class="vertical">
-        <div class="site-head-content inner">
-             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
-            <h1 class="blog-title">Hexo</h1>
-            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
-        </div>
-    </div>
-</header>
-
-      
-
-<main class="content" role="main">
-  <article class="post">
-    <span class="post-meta">
-      <time datetime="2017-01-08T12:48:25.458Z" itemprop="datePublished">
-          2017-01-08
-      </time>
-    
-</span>
-    <h1 class="post-title">公正</h1>
-    <section class="post-content">
-      <hr>
-<h2 id="谋杀背后的逻辑"><a href="#谋杀背后的逻辑" class="headerlink" title="谋杀背后的逻辑"></a>谋杀背后的逻辑</h2><blockquote>
-<p>故事背景：D，S，B，P四个人一起乘一搜船出海，然而船遇到了海难，四个人乘坐一搜小船存活下来，但同样巨大的挑战是他们漂浮在一望无际的大海之上，他们没有淡水，只有两罐罐头，起初他们忍耐了很多天，终于罐头吃完了，四个人没有食物非常饥饿，P不听众人的劝告由于饥渴饮用海水，很快生病了。D本来建议大家投票来选择牺牲一人来拯救三个人，但是由于B没有同意所以没有进行投票。最终D，S，B三人商议杀死P来靠他的尸体维持生存，最终他们三个人被救，D在其日记中这样写道：“我们正在享用早餐，一艘船出现了。”后来三个人被提起公诉。公诉方——<strong>谋杀就是谋杀</strong></p>
-</blockquote>
-<p><em>个人观点：不论在什么样的情况下都不应该谋杀，这是不符合道德观念与人伦权利。为了自己的利益而结束别人的生命是不允许的，不论在什么环境下谋杀是不对的。</em></p>
-<p><em>如果他们在谋杀之前寻求P的同意，真诚的祷告。我依然不认同这样做是可以的，如果可以说服P自杀，然后其余人可以为了生存来处理他的遗留</em></p>
-<p><em>我的想法改变了，如果四个人都同意然后他们进行抽签决定谁来牺牲，我思想上是认同此观点的，毕竟大家都身处绝地，根本没有办法的。我想之所以同意是因为这样更公平，这不是一个程式，而是p也拥有了存活下去的权利。机会对于谁都是平等的，如果被抽中的人突然反悔，我想这样大概是违反了公平，公正的。这是不能反悔的。</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">1. Do we have certaion fundamental rights?</div><div class="line">2. Does a fair procedure justify any result?</div><div class="line">3. What is the moral work of consent?</div></pre></td></tr></table></figure>
-<h2 id="为生命标价"><a href="#为生命标价" class="headerlink" title="为生命标价"></a>为生命标价</h2><p>功利主义要求我们要使最多数人的利益最大化，成本效益分析并不违反功利主义，但是分析过程却不能不尊重少数人的权利（毕竟谁都有自己的权利为自己谋取利益）。再一点说，功利主义分析不能涉及到人类的道德底线，所谓道德原则不是成本利益分析可以突破的，或者说生命是否可以标价，是否可以度量。为了经济利益而不择手段导致的结果是很严重的（如：如今的雾霾天气，整个冬天生活在这样一个灰蒙蒙，呼吸一口气都能不用吃饭的环境–尽管据说因为“吃饭”才有的雾霾。）</p>
-<p>最后如何区分高级快乐和低级快乐，是不是人们所喜欢的或者说大多数人喜欢的就是高级快乐，我想也不是也许他们并不以人的意志为转移，因为高级所以高级。就像LoL可以说玩的人很多，但是并不属于高级快乐，只是低级趣味。（这里的快乐便是集体的利益）大众的快乐建立在少数人的痛苦上，功利主义要求能找到快乐与痛苦的平衡点来使得大多数人的利益最大。</p>
-<p><em>个人反对功利主义，不能因为大多数而去破坏少数，亦或者是背后牵涉的利益而置少数于不顾，说到底还是来源公正，权利不等便是这个问题的病根。</em></p>
-
-    </section>
-    <footer class="post-footer">
-      <section class="author">
-    <h4>John Doe</h4>
-    <p>作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来</p>
-</section>
-      <section class="share">
-    <h4>Share this post</h4>
-    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来 ?url=http://yoursite.com/2017/01/08/如何做好公正/" target="_blank">
-        <span class="hidden">weibo</span>
-    </a>
-    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/01/08/如何做好公正/"
-       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-        <span class="hidden">Twitter</span>
-    </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/01/08/如何做好公正/"
-       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-        <span class="hidden">Facebook</span>
-    </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/01/08/如何做好公正/"
-       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-        <span class="hidden">Google+</span>
-    </a>
-</section>
-
-    </footer>
-  </article>
-  <nav class="pagination" role="pagination">
-    
-    <a class="newer-posts" href="/2017/03/15/EffectiveJAVA2/">
-        ← 
-    </a>
-    
-    <span class="icon-logo">•</span>
-    
-    <a class="older-posts" href="/2017/01/07/Git学习/">
-        Git学习系列 →
-    </a>
-    
-</nav>
-
-  <div id="comment" class="comments-area">
-    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
-    
-</div>
-
-</main>
-
-
-      
-<footer class="site-footer">
-  
-  <div class="inner">
-     <section class="copyright">All content copyright <a href="/">Hexo</a> &copy; 2014 &bull; All rights reserved.</section>
-     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
-  </div>
-</footer>
-
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
-<script type="text/javascript" src="/js/menu.js"></script>
-
-
-
-
-
-  </div>
-</div>
-
-<nav  class="outer-nav top horizontal">
-
-          <a class="icon-home"  href="/"><span>Home</span></a>
-
-          <a class="icon-news"  href="/archive"><span>Archive</span></a>
-
-          <a class="icon-image"  href="/images"><span>Images</span></a>
-
-          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
-
-          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
-
-          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
-
-</nav>
-
-</div>
-</body>
-</html>
+    if page.comments
+      include _partial/comments

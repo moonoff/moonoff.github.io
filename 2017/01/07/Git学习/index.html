@@ -1,205 +1,44 @@
-<!DOCTYPE html>
-<html>
+extends base
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Git学习系列 | Hexo</title>
-  <meta name="description" content="" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="MobileOptimized" content="320" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  <meta name="generator" content="Hexo">
+block title
+  title= page.title + ' | ' + config.title
 
-  
-  
-  
+block content
+  .post
+    h1.post-title= page.title
+    .post-meta= page.date.format('ll')
+      if page.categories.length > 0
+        span= ' | '
+        span.category
+          for category in page.categories.toArray()
+            a(href=url_for(category.path))= category.name
+      if theme.busuanzi == true
+        script(src='https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js', async)
+        span#busuanzi_container_page_pv= ' | '
+          span#busuanzi_value_page_pv
+          span= ' ' + __('Hits')
+    if theme.disqus
+      a.disqus-comment-count(data-disqus-identifier=page.path, href=url_for(page.path) + '#disqus_thread')
+    if theme.changyan
+      a.ds-thread-count(href=url_for(page.path) + '#SOHUCS')
+        span#changyan_count_unit(style='font-size: 15px; color: #6E7173;') 0
+        span= ' ' + __('Comment')
+      script(src='https://assets.changyan.sohu.com/upload/plugins/plugins.count.js', async)
+    if page.toc
+      div(class='clear')
+        div(id='toc' class='toc-article')
+          div(class='toc-title')= __('contents')
+          != toc(page.content, {list_number: theme.toc_number})
+    .post-content
+      != page.content
+    if theme.donate.enable == true
+      iframe(src='/donate/?AliPayQR=#{theme.donate.alipay_qr}&WeChatQR=#{theme.donate.wechat_qr}&GitHub=#{theme.donate.github}&BTCQR=#{theme.donate.btc_qr}&BTCKEY=#{theme.donate.btc_key}&PayPal=#{theme.donate.paypal_url}',style='overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;',frameborder='0',scrolling='no')
+    if theme.shareto == true
+      script(type='text/javascript', src=url_for(theme.js) + '/share.js' + '?v=' + theme.version, async)
+      a.article-share-link(data-url='#{page.permalink}', data-id='#{page._id}', data-qrcode=qrcode(page.permalink))= __('shareto')
 
-  
-</head>
+    include _partial/tag
+    include _partial/post_nav
 
-<!--
-<body class="post-template">
--->
-<body class="home-template">
-<div id="perspective" class="perspective effect-movedown">
-  <div class="container">
-    <!-- wrapper -->
-    <div class="wrapper">
-
-      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
-    <div class="vertical">
-        <div class="site-head-content inner">
-             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
-            <h1 class="blog-title">Hexo</h1>
-            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
-        </div>
-    </div>
-</header>
-
-      
-
-<main class="content" role="main">
-  <article class="post">
-    <span class="post-meta">
-      <time datetime="2017-01-07T13:07:36.647Z" itemprop="datePublished">
-          2017-01-07
-      </time>
-    
-</span>
-    <h1 class="post-title">Git学习系列</h1>
-    <section class="post-content">
-      <p><img src="http://image.baidu.com/search/detail?ct=503316480&amp;z=undefined&amp;tn=baiduimagedetail&amp;ipn=d&amp;word=%E6%8B%BC%E6%90%8F%E5%9B%BE%E7%89%87&amp;step_word=&amp;ie=utf-8&amp;in=&amp;cl=2&amp;lm=-1&amp;st=undefined&amp;cs=989155998,2489807083&amp;os=2311881474,2145356455&amp;simid=4283799337,762979445&amp;pn=6&amp;rn=1&amp;di=62723103190&amp;ln=1941&amp;fr=&amp;fmq=1483689928136_R&amp;fm=&amp;ic=undefined&amp;s=undefined&amp;se=&amp;sme=&amp;tab=0&amp;width=&amp;height=&amp;face=undefined&amp;is=0,0&amp;istype=0&amp;ist=&amp;jit=&amp;bdtype=0&amp;spn=0&amp;pi=0&amp;gsm=0&amp;objurl=http%3A%2F%2Fimg3.redocn.com%2F20100819%2FRedocn_2010081913334632.jpg&amp;rpstart=0&amp;rpnum=0&amp;adpicid=0" alt=""></p>
-<ol>
-<li><p><strong>git status</strong>查看git仓库的状态</p>
-</li>
-<li><p><strong>git init</strong>  初始化git仓库</p>
-</li>
-<li><p><strong>git add a.md</strong> 添加文件到达缓存</p>
-</li>
-<li><p><strong>git commit -m ‘first’</strong> 提交文件</p>
-</li>
-<li><p><strong>git log</strong> 可以查看所有产生的 commit 记录</p>
-</li>
-<li><p><strong>git branch</strong>查看所有分支</p>
-</li>
-<li><p><strong>git branch a</strong> 创建一个名为a的分支，可以使用git branch查看到刚刚创建的分支</p>
-</li>
-<li><p><strong>git checkout a</strong> 可以从别的分支转换到a的分支上进行开发</p>
-</li>
-<li><p><strong>git merge</strong> 合并其他分支到主master分支，首先要确认在主分支上使用git checkout master.然后执行git merge a 意思就是将a分支的改动合并到master分支上来。（当然有可能有冲突情况）</p>
-</li>
-<li><p><strong>git branch -d a</strong> 命令删除a分支</p>
-</li>
-<li><p><strong>git branch -D a</strong> 命令强制删除a分支，上面一条命令可能会因为a分支还没有合并到masterer无法删除。</p>
-</li>
-<li><p><strong>git tag v1.0</strong> 就代表我在当前代码状态下新建了一个v1.0的标签，输入 git tag 可以查看历史 tag 记录。</p>
-</li>
-<li><p><strong>git checkout v1.0</strong>可以切换到V1.0版本</p>
-</li>
-<li><p><strong>git push origin master</strong>把本地代码推到远程 master 分支。</p>
-</li>
-<li><p><strong>git pull origin master</strong>远程最新的代码更新到本地。</p>
-</li>
-<li><p><strong>git remote add origin <a href="https://github.com/moonoff/MyApi.git" target="_blank" rel="external">https://github.com/moonoff/MyApi.git</a></strong>建立关联，origin只是一个仓库名字，可以修改为别的。</p>
-</li>
-<li><p><strong>git push origin master</strong>提交到远程仓库</p>
-</li>
-<li><p><strong>git log –graph –pretty=format:’%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset’ –abbrev-commit –date=relative</strong>使log规范化</p>
-</li>
-<li><p><strong>git config –global alias.lg “log –graph –pretty=format:’%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset’ –abbrev-commit –date=relative”</strong>设置别名，可以使用<em>git lg</em>代替第18条命令</p>
-</li>
-<li><p><strong>git checkout a.md</strong>该命令只能撤销还没有 add 进暂存区的文件。</p>
-</li>
-<li><p><strong>git diff &lt;$id1&gt; &lt;$id2&gt;</strong>   # 比较两次提交之间的差异</p>
-</li>
-<li><p><strong>git diff &lt; branch1&gt;..&lt; branch2&gt;</strong> # 在两个分支之间比较 </p>
-</li>
-<li><p><strong>git diff –staged</strong>   # 比较暂存区和版本库差异</p>
-</li>
-<li><p><strong>git stash</strong>把当前分支所有没有 commit 的代码先暂存起来，并且让你看到原来没有修改的样子</p>
-</li>
-<li><p><strong>git stash list</strong>暂存区已经有了一条记录。</p>
-</li>
-<li><p><strong>git stash apply</strong>你会发现你之前的代码全部又回来了，就好像一切都没发生过一样，紧接着你最好需要把暂存区的这次 stash 记录删除，执行：<strong>git stash drop</strong></p>
-</li>
-<li><p><strong>git stash pop</strong>可以执行第26条的所有动作。</p>
-</li>
-<li><p><strong>git stash clear</strong>清除所有的暂存区。</p>
-</li>
-<li><p><strong>rebase</strong> 跟 <strong>merge</strong> 的区别你们可以理解成有两个书架，你需要把两个书架的书整理到一起去，第一种做法是 merge ，比较粗鲁暴力，就直接腾出一块地方把另一个书架的书全部放进去，虽然暴力，但是这种做法你可以知道哪些书是来自另一个书架的；第二种做法就是 rebase ，他会把两个书架的书先进行比较，按照购书的时间来给他重新排序，然后重新放置好，这样做的好处就是合并之后的书架看起来很有逻辑，但是你很难清晰的知道哪些书来自哪个书架。</p>
-</li>
-</ol>
-
-    </section>
-    <footer class="post-footer">
-      <section class="author">
-    <h4>John Doe</h4>
-    <p>作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来</p>
-</section>
-      <section class="share">
-    <h4>Share this post</h4>
-    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来 ?url=http://yoursite.com/2017/01/07/Git学习/" target="_blank">
-        <span class="hidden">weibo</span>
-    </a>
-    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/01/07/Git学习/"
-       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-        <span class="hidden">Twitter</span>
-    </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/01/07/Git学习/"
-       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-        <span class="hidden">Facebook</span>
-    </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/01/07/Git学习/"
-       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-        <span class="hidden">Google+</span>
-    </a>
-</section>
-
-    </footer>
-  </article>
-  <nav class="pagination" role="pagination">
-    
-    <a class="newer-posts" href="/2017/01/08/如何做好公正/">
-        ← 公正
-    </a>
-    
-    <span class="icon-logo">•</span>
-    
-    <a class="older-posts" href="/2016/12/10/hello-world/">
-        Hello World →
-    </a>
-    
-</nav>
-
-  <div id="comment" class="comments-area">
-    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
-    
-</div>
-
-</main>
-
-
-      
-<footer class="site-footer">
-  
-  <div class="inner">
-     <section class="copyright">All content copyright <a href="/">Hexo</a> &copy; 2014 &bull; All rights reserved.</section>
-     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
-  </div>
-</footer>
-
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
-<script type="text/javascript" src="/js/menu.js"></script>
-
-
-
-
-
-  </div>
-</div>
-
-<nav  class="outer-nav top horizontal">
-
-          <a class="icon-home"  href="/"><span>Home</span></a>
-
-          <a class="icon-news"  href="/archive"><span>Archive</span></a>
-
-          <a class="icon-image"  href="/images"><span>Images</span></a>
-
-          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
-
-          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
-
-          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
-
-</nav>
-
-</div>
-</body>
-</html>
+    if page.comments
+      include _partial/comments

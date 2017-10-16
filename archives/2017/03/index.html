@@ -1,134 +1,24 @@
-<!DOCTYPE html>
-<html>
+extends base
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Archives: 2017/3 | Hexo</title>
-  <meta name="description" content="" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="MobileOptimized" content="320" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  <meta name="generator" content="Hexo">
-
-  
-  
-  
-
-  
-</head>
-
-<!--
-<body class="home-template">
--->
-<body class="home-template">
-<div id="perspective" class="perspective effect-movedown">
-  <div class="container">
-    <!-- wrapper -->
-    <div class="wrapper">
-
-      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
-    <div class="vertical">
-        <div class="site-head-content inner">
-             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
-            <h1 class="blog-title">Hexo</h1>
-            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
-        </div>
-    </div>
-</header>
-
-      
-<main class="content" role="main">
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2017-03-15T02:05:04.106Z" itemprop="datePublished">
-          2017-03-15
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2017/03/15/EffectiveJAVA2/"></a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        第二章 创建销毁对象第一条使用静态工厂方法 为了让客户端获取类的实例
-
-提供一个公有的构造器
-类可以提供一个公有的静态工厂方法
-静态工厂方法创建实例有如下优点：
-
-它有名称，使得代码易读。
-
-不必每次调用他们的时候都创建一个新对象
-
-静态工厂方法与构造器不同的第三大优势在于，他们可以返回原返回类型的任何子类型的对象
-
-在创建参数化类型实例的时候，它们使代码变得更加简洁。
-
-
-静态工厂方法创建实例有如下缺点：
-
-类如果不含有公有的或受保护
-      
-      </p>
-      
-      <p>
-          <a href="/2017/03/15/EffectiveJAVA2/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <nav class="pagination" role="pagination">
-    
-    <span class="page-number">Page 1 of 1</span>
-    
-  </nav>
-</main>
-
-
-      
-<footer class="site-footer">
-  
-  <div class="inner">
-     <section class="copyright">All content copyright <a href="/">Hexo</a> &copy; 2014 &bull; All rights reserved.</section>
-     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
-  </div>
-</footer>
-
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
-<script type="text/javascript" src="/js/menu.js"></script>
-
-
-
-
-
-  </div>
-</div>
-
-<nav  class="outer-nav top horizontal">
-
-          <a class="icon-home"  href="/"><span>Home</span></a>
-
-          <a class="icon-news"  href="/archive"><span>Archive</span></a>
-
-          <a class="icon-image"  href="/images"><span>Images</span></a>
-
-          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
-
-          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
-
-          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
-
-</nav>
-
-</div>
-</body>
-</html>
+block title
+  if page.category
+     title= page.category + ' | ' + config.title
+  if page.tag
+     title= page.tag + ' | ' + config.title
+  if page.archive
+     title= __('archive') + ' | ' + config.title
+block content
+  if page.category || page.tag
+      h1.label-title=  __('reading_label', page.category || page.tag)
+  .post
+    .post-archive
+        //Use lodash to classify posts. See https://lodash.com/docs#groupBy
+        each posts, year in _.groupBy(page.posts.toArray(), function(p){return -p.date.format('YYYY')})
+          h2= -year
+          ul.listing
+            for post in posts
+              li
+                span.date= post.date.format('YYYY/MM/DD')
+                a(href=url_for(post.path), title=post.title)
+                  +title(post)
+  include _partial/paginator.jade
