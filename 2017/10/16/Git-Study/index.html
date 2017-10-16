@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Git Study | Hexo</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Hexo">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Hexo</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-10-16T13:08:25.000Z" itemprop="datePublished">
+          2017-10-16
+      </time>
+    
+</span>
+    <h1 class="post-title">Git Study</h1>
+    <section class="post-content">
+      <ol>
+<li><strong>pwd</strong> （显示当前目录）</li>
+<li><strong>git init</strong> （在当前文件夹下生成git 仓库）</li>
+<li><strong>git add &lt; 文件名 &gt;</strong> （将文件添加到缓存区）</li>
+<li><strong>git commit -m “形容本次提交的文字”</strong>    （将缓存区的内容正式加入仓库）</li>
+<li><strong>git status</strong>   （仓库状态，是否有更新文件未添加）</li>
+<li><strong>git diff readme.txt</strong>  （查看修改内容）</li>
+<li><strong>git log</strong> (提交说明)</li>
+<li><strong>git reset –hard &lt; commit id &gt;</strong>   (将版本回退到commit id版本)</li>
+<li><strong>git reflog</strong> (记录每一次commit的)</li>
+</ol>
+<p>在本地仓库目录下打开Git Bash here，然后通过命令行将本地仓库与远程仓库关联：</p>
+<pre><code>git remote add origin git@github.com:moonoff/learngit.git
+</code></pre><p>将本地add，提交之后的内容推送到远程仓库：</p>
+<pre><code>第一次：git push -u origin master
+之后  ：git push origin master
+</code></pre><p>克隆远程仓库：<br>    git clone git@github.com:moonoff/getskills.git</p>
+<ol>
+<li>创建分支：</li>
+</ol>
+<pre><code>git checkout -b dev
+-b 参数表示：创建分支，并且切换分支：
+git branch dev
+git checkout dev
+</code></pre><ol>
+<li>查看分支：</li>
+</ol>
+<pre><code>git branch
+</code></pre><ol>
+<li>合并分支：将dev分支合并到master：</li>
+</ol>
+<pre><code>git checkout master  （指定当前分支）
+
+git merge dev        （合并dev到当前分支）
+</code></pre><ol>
+<li><p>删除分支：</p>
+<pre><code>git branch -d dev
+</code></pre></li>
+<li><p>解决冲突：</p>
+</li>
+</ol>
+<pre><code>解决方法：合并之后提示冲突文件，打开文件修改成最终保存结果，使用add，commit命令交
+
+    git log --graph --pretty=oneline --abbrev-commit（查看分支合并情况）
+</code></pre><ol>
+<li>分支管理策略：</li>
+</ol>
+<pre><code>git merge --no-ff -m &quot;merge with no-ff&quot; dev （保留分支合并路径）
+</code></pre><ol>
+<li><p>bug分支：</p>
+<pre><code>git stash（将当前的未完成工作暂存起来，去修改bug）
+ git stash list（暂存列表）
+ git stash apply （恢复暂存内容）git stash drop（删除暂存列表）
+ git stash pop （恢复暂存内容，并删除列表）
+ git stash apply stash@{0}（指定恢复的列表）
+</code></pre></li>
+<li><p>新功能开发分支：</p>
+</li>
+</ol>
+<pre><code>git branch -D dev (如果新功能不开发了，准备删除，使用-d无法删除没有合并的分支)
+</code></pre><ol>
+<li>推送分支：</li>
+</ol>
+<pre><code>git push origin &lt;分支名&gt;
+</code></pre><ol>
+<li>多人协作：</li>
+</ol>
+<pre><code>伙伴A克隆：
+
+    git clone git@github.com:moonoff/learngit.git   (只有master分支)
+伙伴B创建分支：
+
+    git checkout -b dev origin/dev
+伙伴C要提交分支dev，冲突发生，可以使用git pull，如果失败：
+建立本地dev与远程dev连接：
+
+    git branch --set-upstream dev origin/dev  接着 git pull
+</code></pre><ol>
+<li>标签</li>
+</ol>
+<pre><code>打印标签：
+
+    git tag v1.0 (默认打印的标签在最新提交的coommit上)
+
+    git tag v0.9 &lt;commit id&gt; (将标签打印在commit id的那次提交上)
+
+    git tag -a v0.1 -m &quot;version 0.1 released&quot; &lt;commit id&gt; 
+
+操作标签：
+
+    git tag -d v0.1
+
+    git push origin v1.0    （推送标签）
+
+    git push origin --tags  (推送所有未推送的标签)
+
+删除远程标签：
+
+    1. 先删除本地标签
+    2. git push origin :refs/tags/v0.9
+</code></pre>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>John Doe</h4>
+    <p>作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=作为挨踢业的伪设计狮伪技术牛 搬过砖也种过地：爱看、爱听、爱玩儿、爱折腾、机械水电、泥瓦木匠啥都来 ?url=http://yoursite.com/2017/10/16/Git-Study/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/10/16/Git-Study/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/10/16/Git-Study/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/10/16/Git-Study/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2017/03/15/EffectiveJAVA2/">
+         →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Hexo</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>
