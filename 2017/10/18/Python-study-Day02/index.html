@@ -202,7 +202,7 @@
 100
 &gt;&gt;&gt; adb(-20)
 20
-</code></pre><p>max（）可接收任意多个参数，并返回最大值。</p>
+</code></pre><p>max()可接收任意多个参数，并返回最大值。</p>
 <pre><code>&gt;&gt;&gt;max (2,3,-1,-5)   
 3
 </code></pre><p>数据类型转换函数</p>
@@ -224,8 +224,8 @@ False
 <pre><code>&gt;&gt;&gt; i=ads
 &gt;&gt;&gt; i(-1)
 1
-</code></pre><h2 id="2-定义函数"><a href="#2-定义函数" class="headerlink" title="2.定义函数"></a>2.定义函数</h2><p>python函数没有像java，c中定义函数（方法）中确定返回值类型，还是不使用返回值。python函数如果没有明确指明return 语句，便会返回None ，return None可以简写为return。</p>
-<pre><code>#my_abs()函数任然缺少必要的参数检查，程序不够健壮
+</code></pre><h2 id="2-定义函数"><a href="#2-定义函数" class="headerlink" title="2.定义函数"></a>2.定义函数</h2><p>python函数没有像java，c中定义函数（方法）中确定返回值类型.python函数如果没有明确指明return 语句，便会返回None ，return None可以简写为return。</p>
+<pre><code>#my_abs()函数仍然缺少必要的参数检查，程序不够健壮
 def my_abs(x):
     if x &gt;= 0:
         return x
@@ -247,8 +247,7 @@ def move(x, y, step, angle=0):
 </code></pre><blockquote>
 <p>实际上该函数返回了一个tuple，多个变量可以同时接收一个tuple，并按位置赋值。</p>
 </blockquote>
-<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>###默认参数：</p>
-<p>python函数可以设置 <strong>默认参数</strong> 非常有创造力,如下所示该函数的参数n默认值为2，即： <em>当函数power（x）时，该函数的n默认值为2，求n的平方，调用power（x,y）求x的y次方</em></p>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><h3 id="默认参数："><a href="#默认参数：" class="headerlink" title="默认参数："></a>默认参数：</h3><p>python函数可以设置 <strong>默认参数</strong> 非常有创造力,如下所示该函数的参数n默认值为2，即： <em>当函数power（x）时，该函数的n默认值为2，求n的平方，调用power（x,y）求x的y次方</em></p>
 <pre><code>def power(x,n=2):
     s=1
     while n &gt; 0:
@@ -270,13 +269,13 @@ def calc(*numbers):
 5
 &gt;&gt;&gt; calc()
 0
-</code></pre><h1 id="如果有现成的list需要将单个元素一个一个传递，在变量前加-可以使其一个一个传递"><a href="#如果有现成的list需要将单个元素一个一个传递，在变量前加-可以使其一个一个传递" class="headerlink" title="如果有现成的list需要将单个元素一个一个传递，在变量前加 * 可以使其一个一个传递"></a>如果有现成的list需要将单个元素一个一个传递，在变量前加 * 可以使其一个一个传递</h1><pre><code>&gt;&gt;&gt; nums = [1, 2, 3]
+</code></pre><p> #如果有现成的list需要将单个元素一个一个传递，在变量前加 * 可以使其一个一个传递</p>
+<pre><code>&gt;&gt;&gt; nums = [1, 2, 3]
 &gt;&gt;&gt; calc(*nums)
 14
 </code></pre><h3 id="关键字参数："><a href="#关键字参数：" class="headerlink" title="关键字参数："></a>关键字参数：</h3><p>关键字参数在函数内部自动组装成一个dict，</p>
 <pre><code>def person(name, age, **kw):
     print(&apos;name:&apos;, name, &apos;age:&apos;, age, &apos;other:&apos;, kw)
-
 
 &gt;&gt;&gt; person(&apos;Michael&apos;, 30)
 name: Michael age: 30 other: {}
@@ -310,8 +309,7 @@ Jack 24 Beijing Engineer
 &gt;&gt;&gt;person(&apos;jack&apos;,22,job=&apos;IT&apos;)
 jack 22 xian IT
 </code></pre><h2 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h2><p>以上参数均可自由组合使用，但是参数顺序必须是：<strong>位置参数</strong>，<strong>默认参数</strong>，<strong>可变参数</strong>，<strong>命名关键字参数</strong>，<strong>关键字参数</strong></p>
-<p>##递归函数</p>
-<p>函数调用自身函数称为递归，现有两种递归方式：</p>
+<h2 id="递归函数"><a href="#递归函数" class="headerlink" title="递归函数"></a>递归函数</h2><p>函数调用自身函数称为递归，现有两种递归方式：</p>
 <pre><code>def fact(n):
     if n==1:
         return 1
@@ -452,7 +450,7 @@ False
 True
 &gt;&gt;&gt; isinstance(iter(&apos;abc&apos;), Iterator)
 True
-</code></pre><p>###小结：<br>凡是可以使用for循环的都是Iterable，<br>凡是可以使用next()的都是Iterator对象，<br>集合list,dict,str可以使用iter()函数将其变为Iterator对象。</p>
+</code></pre><h3 id="小结：-1"><a href="#小结：-1" class="headerlink" title="小结："></a>小结：</h3><p>凡是可以使用for循环的都是Iterable，<br>凡是可以使用next()的都是Iterator对象，<br>集合list,dict,str不是Iterator对象，可以使用iter()函数将其变为Iterator对象。</p>
 
         </section>
         <hr/>
