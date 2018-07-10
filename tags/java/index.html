@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Python-study-Day03 | Hexo</title>
+  <title>Tag: java | Hexo</title>
   <meta name="description" content="" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -178,7 +178,7 @@
                 
                 <div id="nav-container">
                     <div class="post-navbar" style="line-height: 63px;display:none">
-                        <li id="navbar-title"><a href="#">Python-study-Day03</a></li>
+                        <li id="navbar-title"><a href="#">undefined</a></li>
                         <li id="navbar-toc" style="border-left: none">
                             <a style="padding-right: 15px">
                                 <span id="toc-content" >Introduction</span><i class="fa fa-chevron-down" ></i>
@@ -197,183 +197,50 @@
 
 
 <!-- -->
-<!--<body class="post-template">-->
+<!--<body class="home-template">-->
 <!---->
   
-
 <main class="content" role="main">
-    <article class="post" >
-    <span class="post-meta">
-                  <div class="tag-tile">
-                      
-                      
-                      <a data-pjax href='/tags/python/' style='color:#D5D5D5'>python</a>
-                      
-                      
-                  </div>
-                <h1 class="post-title" style="margin: 14px 0;color:#50585D">Python-study-Day03</h1>
 
-                    <div class="post-meta">
-                        Post on<span class="fa fa-clock-o"></span>
-                        <time datetime="2017-10-19T01:55:28.000Z"
-                              itemprop="datePublished">2017-10-19</time>
-                    </div>
-    </span>
+    
+    <article class="post">
 
-        <section class="post-content">
-            <h1 id="一、函数式编程："><a href="#一、函数式编程：" class="headerlink" title="一、函数式编程："></a>一、函数式编程：</h1><h2 id="1-高阶函数："><a href="#1-高阶函数：" class="headerlink" title="1.高阶函数："></a>1.高阶函数：</h2><p>变量可以指向函数，函数名本质上是指向函数的变量。那么在python语言中参数也可以是函数名(函数的别名)</p>
-<pre><code>#在此函数中，f便是一个函数的别名。
-def add(x, y, f):
-    return f(x) + f(y)
-</code></pre><p><strong>map()</strong>函数接收两个参数1.<em>函数f</em>，2.<em>一个Iterable对象</em>，然后map将函数f依次作用于Iterable对象的每一个元素，并返回一个Iterator对象。<strong>(注意Iterable对象和Iterator对象的区别,可以查看前一篇文档)</strong></p>
-<pre><code>def f(x):
-    return x*x
-r=map(f,[1,2,3,4,5,6,7,8,9])
+        <header class="post-header">
+            <div class="tag-tile">
+                
+                
+                <a data-pjax href='/tags/java/'>java</a>
+                
+                
+                <span class="fa fa-bookmark" style="float:right;color:#f39c12"></span>
+            </div>
+            <h1 class="post-title"><a data-pjax href="/2017/10/25/Java-JDBC-study/">Java_JDBC_study</a>
+            </h1>
 
-next(r)
-1
-next(r)
-4
-...
-...
-</code></pre><p><strong>reduce()</strong>函数接收两个参数，1.<em>函数f</em>，2.<em>一个Iterable对象</em>，函数f必须接收两个参数，然后reduce将函数f作用于Iterable对象的第0个和第1个返回结果同第二个元素传入函数f，以此类推…最终返回一个结果。</p>
-<pre><code>&gt;&gt;&gt;from functools import reduce
-&gt;&gt;&gt;def fn(x,y):
-        return x*10+y
-
-&gt;&gt;&gt;def char2num(s):
-        return {&apos;0&apos;: 0, &apos;1&apos;: 1, &apos;2&apos;: 2, &apos;3&apos;: 3, &apos;4&apos;: 4, &apos;5&apos;: 5, &apos;6&apos;: 6, &apos;7&apos;: 7, &apos;8&apos;: 8, &apos;9&apos;: 9}[s]
-
-#map函数返回一个Iterator对象，并调用reduce函数将连续的int，转换为一个整数
-&gt;&gt;&gt;reduce(fn,map(char2num,&apos;13579&apos;))
-</code></pre><p><strong>filter()</strong> 函数接收两个参数，1.<em>函数f</em> ,2.<em>一个序列</em> 。函数f作用于序列的每一个元素，但是返回值为True 或者是 False，filter函数根据bool值判定保留还是删除该数据，并返回一个Iterator对象。</p>
-<pre><code>def is_odd(x):
-    return x%2==1
-
-r=filter(is_odd,[1,2,3,4,5,6])
-</code></pre><p><strong>sorted()</strong> python内置函数可以对序列进行简单排序</p>
-<pre><code>&gt;&gt;&gt;sorted([35,5,-12,9,-21])
-[-21,-12,5,9,36]
-</code></pre><p>还可以接收一个key函数来自定义排序规则</p>
-<pre><code>&gt;&gt;&gt;sorted([35,5,-12,9,-21]，key=abs)
-[5,9,-12,-21,36]
-</code></pre><h2 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h2><p>定义一个求和函数，有时候需要求出结果，有时候不一定必须要求出结果，等到需要的时候再调用返回函数来求取结果</p>
-<pre><code>def lazy_sum(*nums):
-    def sum():
-        ax=0
-        for n in nums:
-            ax=ax+n
-        return ax
-    return sum
-
-
-&gt;&gt;&gt;f=lazy_sum(1,2,3,4,5,6)
-&gt;&gt;&gt;f()
-21
-</code></pre><blockquote>
-<p>f1=lazy_sum(1,2,3)<br>f2=lazy_sum(1,2,3)<br>f1==f2<br>False<br>lazy_sum()函数返回值为一个函数，不是具体值，即使传入相同参数返回值也不相等。</p>
-</blockquote>
-<p>返回函数不要应用任何循环变量，或者后续会发生变化的变量。如果必须使用便再创建一个函数，把循环变量绑定到函数参数，就不会改变了。</p>
-<pre><code>def count():
-    #将循环变量绑定到f参数，
-    def f(j):
-        def g():
-            return j*j
-        return g
-    fs=[]
-    for i in range(1,4):
-        fs.append(f(i))
-    return fs
-</code></pre><h2 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h2><p>匿名函数使用lambda为关键字：</p>
-<pre><code>&gt;&gt;&gt;f = lambda x:x*x
-&gt;&gt;&gt;f
-&gt;&gt;&gt;f(5)
-25
-</code></pre><p>等同于：</p>
-<pre><code>def f(x):
-    return x*x
-</code></pre><p>匿名函数也可以直接作为返回值返回。</p>
-<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><pre><code>&gt;&gt;&gt;def now():
-...    print(&quot;2017-03-55&quot;)
-...
-
-&gt;&gt;&gt;now.__name__
-&apos;now&apos;
-</code></pre><p>添加装饰器，在now函数执行前打印log日志,如下代码：使用log函数装饰now函数：相当于 <strong>now=log(now)</strong></p>
-<pre><code>def log(func):
-    def wrapper(*args,**kw):
-        print (&apos;call %s()&apos; % func.__name__)
-        return func(*args,**kw)
-    return wrapper
-
-@log
-def now():
-    print(&apos;123456&apos;)
-
-&gt;&gt;&gt;now()
-call now()
-123456
-</code></pre><p>如果需要给decorator传入参数，需要定义更高阶的函数</p>
-<pre><code>import functools
-def log(text):
-
-    def decorator(func):
-        # @functools.wraps(func)使得now函数的__name__依然是now
-        @functools.wraps(func)
-        def wrapper(*args,**kw):
-            print(&apos;%s,%s():&apos; %(text, func.__name__)
-            return func(*args,**kw)
-        return wrapper
-    return decorator
-
-@log(&apos;execute&apos;)
-def now():
-    print (&apos;45456&apos;)
-
-&gt;&gt;&gt;now.__name__
-wrapper  #@functools.wraps(func)时，输出wrapper，加入代码@functools.wraps(func)，输出now
-# now= log(&apos;execute&apos;)(now)
-</code></pre><h2 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h2><p>通过functools功能创建一个偏函数int2，该函数将二进制数转换为十进制数，如果定义base=8：就是将int2(‘参数按8进制算’)转换为十进制。</p>
-<pre><code>&gt;&gt;&gt; import functools
-&gt;&gt;&gt; int2=functools.partial(int,base=2)
-&gt;&gt;&gt; int2(&apos;1000000&apos;)
-64
-</code></pre><p>偏函数相当于给函数设置默认值，并返回一个新函数。</p>
-<hr>
-<h1 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h1><h2 id="类和实例"><a href="#类和实例" class="headerlink" title="类和实例"></a>类和实例</h2><pre><code>#定义一个类student，继承自object对象。
-class Student(object):
-
-    #__init__方法的第一个参数永远是self，对象本身不需要传递，如果self后面有跟的属性，则创建对象时必须传入相对应的属性；
-    def __init__(self):
-        pass
-    #在类中定义的方法的第一个参数永远是self    
-
-#创建一个对象实例
-&gt;&gt;&gt;st1=Student()
-
-#给对象自由绑定一个属性name
-st1.name=&quot;jack&quot;
-</code></pre><p>》》》未完待续：下一章</p>
-
+            <div class="post-meta">
+                Post on<span class="fa fa-clock-o"></span>
+                <time datetime="2017-10-25T03:17:10.000Z"
+                      itemprop="datePublished">2017-10-25</time>
+            </div>
+        </header>
+        <section class="post-excerpt">
+            <p>
+                
+                Mysql使用连接到mysql&gt; mysql -u root -p
+然后提示输入root密码，如果第一次安装没有设置密码直接回车，否则请输入密码就可以连接到数据库。还可以通过以下语句来修改数据库密码。
+&gt; ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;new_password&apos;;
+如果要离开Mysql，请在客户机输入qui
+                
+            </p>
+            
         </section>
-        <hr/>
-        <nav class="pagination" style="width:auto" role="pagination">
-            
-            <a data-pjax class="newer-posts" href="/2017/10/20/Python-study-Day04/">← Prev Post</a>
-            
-            <a class="share-button" data-original-title title>Share this Post</a>
-            
-            <a data-pjax class="older-posts" href="/2017/10/18/Python-study-Day02/">Next Post →</a>
-            
-        </nav>
-        <br/>
-        <br/>
-        <section id="comment">
-            <div id="comment-box"></div>
-        </section>
-
-
     </article>
+    
+    <nav class="pagination" role="pagination">
+        
+        <span class="page-number">Page 1 of 1</span>
+        
+    </nav>
 </main>
 
 

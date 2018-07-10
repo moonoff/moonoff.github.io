@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Python-study-Day03 | Hexo</title>
+  <title>Java_JDBC_study | Hexo</title>
   <meta name="description" content="" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -178,7 +178,7 @@
                 
                 <div id="nav-container">
                     <div class="post-navbar" style="line-height: 63px;display:none">
-                        <li id="navbar-title"><a href="#">Python-study-Day03</a></li>
+                        <li id="navbar-title"><a href="#">Java_JDBC_study</a></li>
                         <li id="navbar-toc" style="border-left: none">
                             <a style="padding-right: 15px">
                                 <span id="toc-content" >Introduction</span><i class="fa fa-chevron-down" ></i>
@@ -207,163 +207,204 @@
                   <div class="tag-tile">
                       
                       
-                      <a data-pjax href='/tags/python/' style='color:#D5D5D5'>python</a>
+                      <a data-pjax href='/tags/java/' style='color:#D5D5D5'>java</a>
                       
                       
                   </div>
-                <h1 class="post-title" style="margin: 14px 0;color:#50585D">Python-study-Day03</h1>
+                <h1 class="post-title" style="margin: 14px 0;color:#50585D">Java_JDBC_study</h1>
 
                     <div class="post-meta">
                         Post on<span class="fa fa-clock-o"></span>
-                        <time datetime="2017-10-19T01:55:28.000Z"
-                              itemprop="datePublished">2017-10-19</time>
+                        <time datetime="2017-10-25T03:17:10.000Z"
+                              itemprop="datePublished">2017-10-25</time>
                     </div>
     </span>
 
         <section class="post-content">
-            <h1 id="一、函数式编程："><a href="#一、函数式编程：" class="headerlink" title="一、函数式编程："></a>一、函数式编程：</h1><h2 id="1-高阶函数："><a href="#1-高阶函数：" class="headerlink" title="1.高阶函数："></a>1.高阶函数：</h2><p>变量可以指向函数，函数名本质上是指向函数的变量。那么在python语言中参数也可以是函数名(函数的别名)</p>
-<pre><code>#在此函数中，f便是一个函数的别名。
-def add(x, y, f):
-    return f(x) + f(y)
-</code></pre><p><strong>map()</strong>函数接收两个参数1.<em>函数f</em>，2.<em>一个Iterable对象</em>，然后map将函数f依次作用于Iterable对象的每一个元素，并返回一个Iterator对象。<strong>(注意Iterable对象和Iterator对象的区别,可以查看前一篇文档)</strong></p>
-<pre><code>def f(x):
-    return x*x
-r=map(f,[1,2,3,4,5,6,7,8,9])
+            <h1 id="Mysql使用"><a href="#Mysql使用" class="headerlink" title="Mysql使用"></a>Mysql使用</h1><h2 id="连接到mysql"><a href="#连接到mysql" class="headerlink" title="连接到mysql"></a>连接到mysql</h2><pre><code>&gt; mysql -u root -p
+</code></pre><p>然后提示输入root密码，如果第一次安装没有设置密码直接回车，否则请输入密码就可以连接到数据库。还可以通过以下语句来修改数据库密码。</p>
+<pre><code>&gt; ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;new_password&apos;;
+</code></pre><p>如果要离开Mysql，请在客户机输入<code>quit</code>并回车。</p>
+<pre><code>&gt;quit
+</code></pre><h2 id="Mysql数据库基本操作"><a href="#Mysql数据库基本操作" class="headerlink" title="Mysql数据库基本操作"></a>Mysql数据库基本操作</h2><p><strong>显示存在的数据库</strong>使用<code>show databases</code>.</p>
+<pre><code>mysql&gt; SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+</code></pre><p><strong>创建一个数据库</strong>使用<code>create database</code></p>
+<pre><code>mysql&gt; CREATE DATABASE pets;
+Query OK, 1 row affected (0.01 sec)
+</code></pre><p><strong>在一个数据库中创建一张表</strong>，首先要选择数据库使用<code>use</code>语句</p>
+<pre><code>mysql&gt; USE pets
+Database changed
+</code></pre><p>接下来创建一张表，使用<code>create table</code>语句</p>
+<pre><code>CREATE TABLE cats
+(
+  id              INT unsigned NOT NULL AUTO_INCREMENT, # Unique ID for the record
+  name            VARCHAR(150) NOT NULL,                # Name of the cat
+  owner           VARCHAR(150) NOT NULL,                # Owner of the cat
+  birth           DATE NOT NULL,                        # Birthday of the cat
+  PRIMARY KEY     (id)                                  # Make the id the primary key
+);
+</code></pre><p>查看创建成功的表格，使用<code>show table</code>语句</p>
+<pre><code>mysql&gt; SHOW TABLES;
++----------------+
+| Tables_in_pets |
++----------------+
+| cats           |
++----------------+
+1 row in set (0.00 sec)
+</code></pre><p>使用<code>describe</code>语句显示表的所有列信息：</p>
+<pre><code>mysql&gt; DESCRIBE cats;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(150)     | NO   |     | NULL    |                |
+| owner | varchar(150)     | NO   |     | NULL    |                |
+| birth | date             | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+</code></pre><h3 id="插入一条数据：使用insert-…-values"><a href="#插入一条数据：使用insert-…-values" class="headerlink" title="插入一条数据：使用insert … values"></a>插入一条数据：使用insert … values</h3><pre><code>INSERT INTO cats (name, owner, birth) VALUES
+  ( &apos;Sandy&apos;, &apos;Lennon&apos;, &apos;2015-01-03&apos; ),
+  ( &apos;Cookie&apos;, &apos;Casey&apos;, &apos;2013-11-13&apos; ),
+  ( &apos;Charlie&apos;, &apos;River&apos;, &apos;2016-05-21&apos; );
+</code></pre><h3 id="查询表的所有信息使用-select-from"><a href="#查询表的所有信息使用-select-from" class="headerlink" title="查询表的所有信息使用 select * from..."></a>查询表的所有信息使用 <code>select * from...</code></h3><pre><code>mysql&gt; SELECT * FROM cats;
++----+---------+--------+------------+
+| id | name    | owner  | birth      |
++----+---------+--------+------------+
+|  1 | Sandy   | Lennon | 2015-01-03 |
+|  2 | Cookie  | Casey  | 2013-11-13 |
+|  3 | Charlie | River  | 2016-05-21 |
++----+---------+--------+------------+
+3 rows in set (0.00 sec)
+</code></pre><h3 id="删除一条指定记录"><a href="#删除一条指定记录" class="headerlink" title="删除一条指定记录"></a>删除一条指定记录</h3><pre><code>mysql&gt; DELETE FROM cats WHERE name=&apos;Cookie&apos;;
+Query OK, 1 row affected (0.05 sec)
 
-next(r)
-1
-next(r)
-4
-...
-...
-</code></pre><p><strong>reduce()</strong>函数接收两个参数，1.<em>函数f</em>，2.<em>一个Iterable对象</em>，函数f必须接收两个参数，然后reduce将函数f作用于Iterable对象的第0个和第1个返回结果同第二个元素传入函数f，以此类推…最终返回一个结果。</p>
-<pre><code>&gt;&gt;&gt;from functools import reduce
-&gt;&gt;&gt;def fn(x,y):
-        return x*10+y
+mysql&gt; SELECT * FROM cats;
++----+---------+--------+------------+
+| id | name    | owner  | birth      |
++----+---------+--------+------------+
+|  1 | Sandy   | Lennon | 2015-01-03 |
+|  3 | Charlie | River  | 2016-05-21 |
++----+---------+--------+------------+
+2 rows in set (0.00 sec)
+</code></pre><h3 id="给表添加一列属性"><a href="#给表添加一列属性" class="headerlink" title="给表添加一列属性"></a>给表添加一列属性</h3><pre><code>mysql&gt; ALTER TABLE cats ADD gender CHAR(1) AFTER name;
+Query OK, 0 rows affected (0.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
-&gt;&gt;&gt;def char2num(s):
-        return {&apos;0&apos;: 0, &apos;1&apos;: 1, &apos;2&apos;: 2, &apos;3&apos;: 3, &apos;4&apos;: 4, &apos;5&apos;: 5, &apos;6&apos;: 6, &apos;7&apos;: 7, &apos;8&apos;: 8, &apos;9&apos;: 9}[s]
+mysql&gt; DESCRIBE cats;
++--------+------------------+------+-----+---------+----------------+
+| Field  | Type             | Null | Key | Default | Extra          |
++--------+------------------+------+-----+---------+----------------+
+| id     | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(150)     | NO   |     | NULL    |                |
+| gender | char(1)          | YES  |     | NULL    |                |
+| owner  | varchar(150)     | NO   |     | NULL    |                |
+| birth  | date             | NO   |     | NULL    |                |
++--------+------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+</code></pre><h3 id="删除表的一列"><a href="#删除表的一列" class="headerlink" title="删除表的一列"></a>删除表的一列</h3><pre><code>&gt;ALTER TABLE cats DROP gender;
+</code></pre><h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><p>JDBC简介：Java语言提供访问和操作数据库的一种途径。</p>
+<h1 id="JDBC使用用例"><a href="#JDBC使用用例" class="headerlink" title="JDBC使用用例"></a>JDBC使用用例</h1><h3 id="使用DriverManager连接到数据库"><a href="#使用DriverManager连接到数据库" class="headerlink" title="使用DriverManager连接到数据库"></a>使用DriverManager连接到数据库</h3><p>1.首先使用<code>Class.forName()</code></p>
+<p>2.从<code>DriveManager.getConnection()</code>获取到数据库连接。</p>
+<pre><code>import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-#map函数返回一个Iterator对象，并调用reduce函数将连续的int，转换为一个整数
-&gt;&gt;&gt;reduce(fn,map(char2num,&apos;13579&apos;))
-</code></pre><p><strong>filter()</strong> 函数接收两个参数，1.<em>函数f</em> ,2.<em>一个序列</em> 。函数f作用于序列的每一个元素，但是返回值为True 或者是 False，filter函数根据bool值判定保留还是删除该数据，并返回一个Iterator对象。</p>
-<pre><code>def is_odd(x):
-    return x%2==1
+// Notice, do not import com.mysql.jdbc.*
+// or you will have problems!
 
-r=filter(is_odd,[1,2,3,4,5,6])
-</code></pre><p><strong>sorted()</strong> python内置函数可以对序列进行简单排序</p>
-<pre><code>&gt;&gt;&gt;sorted([35,5,-12,9,-21])
-[-21,-12,5,9,36]
-</code></pre><p>还可以接收一个key函数来自定义排序规则</p>
-<pre><code>&gt;&gt;&gt;sorted([35,5,-12,9,-21]，key=abs)
-[5,9,-12,-21,36]
-</code></pre><h2 id="返回函数"><a href="#返回函数" class="headerlink" title="返回函数"></a>返回函数</h2><p>定义一个求和函数，有时候需要求出结果，有时候不一定必须要求出结果，等到需要的时候再调用返回函数来求取结果</p>
-<pre><code>def lazy_sum(*nums):
-    def sum():
-        ax=0
-        for n in nums:
-            ax=ax+n
-        return ax
-    return sum
+public class LoadDriver {
+    public static void main(String[] args) {
+        try {
+            // The newInstance() call is a work around for some
+            // broken Java implementations
 
+            //1. register MySQL 
+            Class.forName(&quot;com.mysql.jdbc.Driver&quot;).newInstance();
 
-&gt;&gt;&gt;f=lazy_sum(1,2,3,4,5,6)
-&gt;&gt;&gt;f()
-21
-</code></pre><blockquote>
-<p>f1=lazy_sum(1,2,3)<br>f2=lazy_sum(1,2,3)<br>f1==f2<br>False<br>lazy_sum()函数返回值为一个函数，不是具体值，即使传入相同参数返回值也不相等。</p>
-</blockquote>
-<p>返回函数不要应用任何循环变量，或者后续会发生变化的变量。如果必须使用便再创建一个函数，把循环变量绑定到函数参数，就不会改变了。</p>
-<pre><code>def count():
-    #将循环变量绑定到f参数，
-    def f(j):
-        def g():
-            return j*j
-        return g
-    fs=[]
-    for i in range(1,4):
-        fs.append(f(i))
-    return fs
-</code></pre><h2 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h2><p>匿名函数使用lambda为关键字：</p>
-<pre><code>&gt;&gt;&gt;f = lambda x:x*x
-&gt;&gt;&gt;f
-&gt;&gt;&gt;f(5)
-25
-</code></pre><p>等同于：</p>
-<pre><code>def f(x):
-    return x*x
-</code></pre><p>匿名函数也可以直接作为返回值返回。</p>
-<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><pre><code>&gt;&gt;&gt;def now():
-...    print(&quot;2017-03-55&quot;)
-...
+            //2. Obtaining a connection from the DriverManager
+            Connection conn = null;
+            try {
+            conn =DriverManager.getConnection(&quot;jdbc:mysql://localhost/test?&quot; +&quot;user=minty&amp;password=greatsqldb&quot;);
 
-&gt;&gt;&gt;now.__name__
-&apos;now&apos;
-</code></pre><p>添加装饰器，在now函数执行前打印log日志,如下代码：使用log函数装饰now函数：相当于 <strong>now=log(now)</strong></p>
-<pre><code>def log(func):
-    def wrapper(*args,**kw):
-        print (&apos;call %s()&apos; % func.__name__)
-        return func(*args,**kw)
-    return wrapper
+            // Do something with the Connection
 
-@log
-def now():
-    print(&apos;123456&apos;)
+            } catch (SQLException ex) {
+                // handle any errors
+                System.out.println(&quot;SQLException: &quot; + ex.getMessage());
+                System.out.println(&quot;SQLState: &quot; + ex.getSQLState());
+                System.out.println(&quot;VendorError: &quot; + ex.getErrorCode());
+            }
+        } catch (Exception ex) {
+            // handle the error
+        }
+    }
+}
+</code></pre><p>3.执行sql语句,如果语句为<code>select</code>语句可以使用<code>executeQuery(Sring SQL)</code>方法，如果是更新数据可以使用<code>executeUpdate(Sring SQL)</code>。都可以使用<code>execute(String SQL)</code>方法执行语句，如果是select语句则返回<code>True</code>，可以通过<code>getResultSet()</code>获取到查询结果集，如果是<code>Updata,Insert,delete</code>则最终返回<code>False</code>，可以通过<code>getUpatateCount()</code>获取到收到影响的行数。</p>
+<pre><code>// assume that conn is an already created JDBC connection (see previous examples)
 
-&gt;&gt;&gt;now()
-call now()
-123456
-</code></pre><p>如果需要给decorator传入参数，需要定义更高阶的函数</p>
-<pre><code>import functools
-def log(text):
+Statement stmt = null;
+ResultSet rs = null;
 
-    def decorator(func):
-        # @functools.wraps(func)使得now函数的__name__依然是now
-        @functools.wraps(func)
-        def wrapper(*args,**kw):
-            print(&apos;%s,%s():&apos; %(text, func.__name__)
-            return func(*args,**kw)
-        return wrapper
-    return decorator
+try {
+    stmt = conn.createStatement();
+    rs = stmt.executeQuery(&quot;SELECT foo FROM bar&quot;);
 
-@log(&apos;execute&apos;)
-def now():
-    print (&apos;45456&apos;)
+    // or alternatively, if you don&apos;t know ahead of time that
+    // the query will be a SELECT...
 
-&gt;&gt;&gt;now.__name__
-wrapper  #@functools.wraps(func)时，输出wrapper，加入代码@functools.wraps(func)，输出now
-# now= log(&apos;execute&apos;)(now)
-</code></pre><h2 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h2><p>通过functools功能创建一个偏函数int2，该函数将二进制数转换为十进制数，如果定义base=8：就是将int2(‘参数按8进制算’)转换为十进制。</p>
-<pre><code>&gt;&gt;&gt; import functools
-&gt;&gt;&gt; int2=functools.partial(int,base=2)
-&gt;&gt;&gt; int2(&apos;1000000&apos;)
-64
-</code></pre><p>偏函数相当于给函数设置默认值，并返回一个新函数。</p>
-<hr>
-<h1 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h1><h2 id="类和实例"><a href="#类和实例" class="headerlink" title="类和实例"></a>类和实例</h2><pre><code>#定义一个类student，继承自object对象。
-class Student(object):
+    if (stmt.execute(&quot;SELECT foo FROM bar&quot;)) {
+        rs = stmt.getResultSet();
+    }
 
-    #__init__方法的第一个参数永远是self，对象本身不需要传递，如果self后面有跟的属性，则创建对象时必须传入相对应的属性；
-    def __init__(self):
-        pass
-    #在类中定义的方法的第一个参数永远是self    
+    // Now do something with the ResultSet ....
+}
+catch (SQLException ex){
+    // handle any errors
+    System.out.println(&quot;SQLException: &quot; + ex.getMessage());
+    System.out.println(&quot;SQLState: &quot; + ex.getSQLState());
+    System.out.println(&quot;VendorError: &quot; + ex.getErrorCode());
+}
+finally {
+    // it is a good idea to release
+    // resources in a finally{} block
+    // in reverse-order of their creation
+    // if they are no-longer needed
 
-#创建一个对象实例
-&gt;&gt;&gt;st1=Student()
+    if (rs != null) {
+        try {
+            rs.close();
+        } catch (SQLException sqlEx) { } // ignore
 
-#给对象自由绑定一个属性name
-st1.name=&quot;jack&quot;
-</code></pre><p>》》》未完待续：下一章</p>
+        rs = null;
+    }
 
+    if (stmt != null) {
+        try {
+            stmt.close();
+        } catch (SQLException sqlEx) { } // ignore
+
+        stmt = null;
+    }
+}
+</code></pre>
         </section>
         <hr/>
         <nav class="pagination" style="width:auto" role="pagination">
             
-            <a data-pjax class="newer-posts" href="/2017/10/20/Python-study-Day04/">← Prev Post</a>
+            <a style="cursor:default" class="newer-posts" href="#">This is the First Post</a>
             
             <a class="share-button" data-original-title title>Share this Post</a>
             
-            <a data-pjax class="older-posts" href="/2017/10/18/Python-study-Day02/">Next Post →</a>
+            <a data-pjax class="older-posts" href="/2017/10/20/Python-study-Day04/">Next Post →</a>
             
         </nav>
         <br/>
