@@ -43,6 +43,10 @@
                                 <div class="mp-scroll">
                                 
                                 <li class="search-archive-li mp-pjax">
+                                    <a href="/2018/07/17/servlet创建/">servlet创建</a>
+                                </li>
+                                
+                                <li class="search-archive-li mp-pjax">
                                     <a href="/2018/07/17/Servlet生命周期/">Servlet生命周期</a>
                                 </li>
                                 
@@ -131,6 +135,11 @@
                                     <small>4</small>
                                 </li>
                                 
+                                <li class="search-tag-li mp-pjax">
+                                    <a href="/tags/servlet/">&nbsp;&nbsp;&nbsp;servlet</a>
+                                    <small>1</small>
+                                </li>
+                                
                                 </div>
                             </ul>
                         </div>
@@ -145,6 +154,8 @@
         </nav>
         <div id="pjax">
             <div class="pjax-hidden" style="display: none">
+                
+                    <a  data-pjax href="/2018/07/17/servlet创建/">servlet创建</a>
                 
                     <a  data-pjax href="/2018/07/17/Servlet生命周期/">Servlet生命周期</a>
                 
@@ -173,6 +184,8 @@
                     <a data-pjax href="/tags/java/">&nbsp;&nbsp;java</a>
                 
                     <a data-pjax href="/tags/python/">&nbsp;&nbsp;python</a>
+                
+                    <a data-pjax href="/tags/servlet/">&nbsp;&nbsp;servlet</a>
                 
                 <a data-pjax class="fa fa-user" href="/about">&nbsp;&nbsp;&nbsp;About me</a>
             </div>
@@ -212,6 +225,10 @@
     <span class="post-meta">
                   <div class="tag-tile">
                       
+                      
+                      <a data-pjax href='/tags/servlet/' style='color:#D5D5D5'>servlet</a>
+                      
+                      
                   </div>
                 <h1 class="post-title" style="margin: 14px 0;color:#50585D">Servlet生命周期</h1>
 
@@ -249,8 +266,12 @@
     // Servlet 代码
 }
 </code></pre><h2 id="doPost-方法"><a href="#doPost-方法" class="headerlink" title="doPost() 方法"></a>doPost() 方法</h2><p>POST 请求来自于一个特别指定了 METHOD 为 POST 的 HTML 表单，它由 doPost() 方法处理。</p>
-<p>public void doPost(HttpServletRequest request,<br>                   HttpServletResponse response)<br>    throws ServletException, IOException {<br>    // Servlet 代码<br>}</p>
-<h2 id="destroy-方法"><a href="#destroy-方法" class="headerlink" title="destroy() 方法"></a>destroy() 方法</h2><p>destroy() 方法只会被调用一次，在 Servlet 生命周期结束时被调用。destroy() 方法可以让您的 Servlet 关闭数据库连接、停止后台线程、把 Cookie 列表或点击计数器写入到磁盘，并执行其他类似的清理活动。</p>
+<pre><code>public void doPost(HttpServletRequest request,
+               HttpServletResponse response)
+throws ServletException, IOException {
+    // Servlet 代码
+}
+</code></pre><h2 id="destroy-方法"><a href="#destroy-方法" class="headerlink" title="destroy() 方法"></a>destroy() 方法</h2><p>destroy() 方法只会被调用一次，在 Servlet 生命周期结束时被调用。destroy() 方法可以让您的 Servlet 关闭数据库连接、停止后台线程、把 Cookie 列表或点击计数器写入到磁盘，并执行其他类似的清理活动。</p>
 <p>在调用 destroy() 方法之后，servlet 对象被标记为垃圾回收。destroy 方法定义如下所示：</p>
 <pre><code>public void destroy() {
   // 终止化代码...
@@ -260,7 +281,7 @@
         <hr/>
         <nav class="pagination" style="width:auto" role="pagination">
             
-            <a style="cursor:default" class="newer-posts" href="#">This is the First Post</a>
+            <a data-pjax class="newer-posts" href="/2018/07/17/servlet创建/">← Prev Post</a>
             
             <a class="share-button" data-original-title title>Share this Post</a>
             
